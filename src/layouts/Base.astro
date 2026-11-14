@@ -20,6 +20,9 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <meta charset="utf-8">
 <script is:inline>(function(){var d=document.documentElement,on=function(){d.classList.add('fl')};try{if(sessionStorage.getItem('fl'))on()}catch(e){}if(!d.classList.contains('fl'))requestAnimationFrame(function(){setTimeout(function(){on();try{sessionStorage.setItem('fl','1')}catch(e){}},0)});document.addEventListener('astro:after-swap',on)})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Google tag (GTM-PFQ63M83), loaded after the page has finished so it never slows the first view -->
+<script is:inline>(function(){if(window.__gtm)return;window.__gtm=1;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());var go=function(){setTimeout(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtm.js?id=GTM-PFQ63M83';document.head.appendChild(s)},1200)};if(document.readyState==='complete')go();else window.addEventListener('load',go)})();</script>
+
 <title>{title}</title>
 <meta name="description" content={description}>
 <link rel="canonical" href={url}>

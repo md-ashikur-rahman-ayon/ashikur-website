@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /keystatic
 
-Sitemap: https://ashikur.site/sitemap-index.xml
+Sitemap: https://ashikur.safeshare.co/sitemap-index.xml

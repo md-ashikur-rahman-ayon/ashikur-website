@@ -18,8 +18,8 @@ const path = `/notebook/${piece.id}/`;
 const mail = `https://mail.google.com/mail/?view=cm&fs=1&to=ashikur.ayon190@gmail.com&su=${encodeURIComponent(d.shortTitle || d.title)}`;
 const ld = {
   '@context': 'https://schema.org', '@type': 'BlogPosting', headline: d.title, datePublished: iso,
-  author: { '@type': 'Person', name: 'Md Ashikur Rahman', url: 'https://ashikur.site/about' },
-  keywords: d.tags, url: 'https://ashikur.site' + path,
+  author: { '@type': 'Person', name: 'Md Ashikur Rahman', url: 'https://ashikur.safeshare.co/about/' },
+  keywords: d.tags, url: 'https://ashikur.safeshare.co' + path,
 };
 ---
 <Base title={`${d.title} | Md Ashikur Rahman`} description={d.summary || d.excerpt} path={path} type="article" jsonLd={ld}>

@@ -1,14 +1,14 @@
 import { defineConfig } from 'astro/config';
-import netlify from '@astrojs/netlify';
+import vercel from '@astrojs/vercel';
 import react from '@astrojs/react';
 import markdoc from '@astrojs/markdoc';
 import sitemap from '@astrojs/sitemap';
 import keystatic from '@keystatic/astro';
 
 export default defineConfig({
-  site: 'https://ashikur.site',
+  site: 'https://ashikur.safeshare.co',
   trailingSlash: 'ignore',
-  adapter: netlify(),
+  adapter: vercel(),
   integrations: [
     react(),
     markdoc(),

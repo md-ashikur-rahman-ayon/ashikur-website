@@ -10,8 +10,8 @@ interface Props {
   jsonLd?: object | object[];
 }
 const { title, description, path, type = 'website', jsonLd } = Astro.props;
-const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://ashikur.site';
-const url = site + path;
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://ashikur.safeshare.co';
+const url = site + (path.endsWith('/') ? path : path + '/');
 const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 <!doctype html>

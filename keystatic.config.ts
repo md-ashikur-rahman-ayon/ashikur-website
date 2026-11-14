@@ -2,7 +2,7 @@ import { config, fields, collection, singleton } from '@keystatic/core';
 
 // On your own computer the editor saves straight into these files.
 // On the live site it saves to GitHub, and Netlify republishes the site a minute later.
-const repo = (import.meta.env.PUBLIC_KEYSTATIC_REPO || 'OWNER/ashikur-site') as `${string}/${string}`;
+const repo = (import.meta.env.PUBLIC_KEYSTATIC_REPO || 'md-ashikur-rahman-ayon/ashikur-website') as `${string}/${string}`;
 
 export default config({
   storage: import.meta.env.PROD ? { kind: 'github', repo } : { kind: 'local' },

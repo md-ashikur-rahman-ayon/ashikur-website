@@ -1,0 +1,27 @@
+---
+interface Props { current?: 'about' | 'notebook' | 'shelf' | 'home' }
+const { current } = Astro.props;
+const home = current === 'home';
+const h = (hash: string) => (home ? hash : '/' + hash);
+---
+<header class="wrap nav">
+<a class="mark" href="/">Ashik</a>
+<nav aria-label="Main">
+<ul>
+<li><a href="/about" aria-current={current === 'about' ? 'page' : undefined}>About</a></li>
+<li><a href={h('#work')}>Work</a></li>
+<li><a href={h('#places')}>Places</a></li>
+<li><a href="/shelf" aria-current={current === 'shelf' ? 'page' : undefined}>Shelf</a></li>
+<li><a href="/notebook" aria-current={current === 'notebook' ? 'page' : undefined}>Notebook</a></li>
+<li><a href={h('#contact')}>Contact</a></li>
+<li class="m-cta"><a href={h('#contact')}>Discuss a project</a></li>
+</ul>
+</nav>
+<div class="nav-r">
+<button class="mb" type="button" aria-expanded="false">Menu</button>
+<a class="cta" href={h('#contact')}>Discuss a project</a>
+<button class="rec" id="rec" type="button" aria-pressed="false" aria-label="Play the music" title="Music on or off">
+<span class="disc-i" aria-hidden="true"></span>
+</button>
+</div>
+</header>

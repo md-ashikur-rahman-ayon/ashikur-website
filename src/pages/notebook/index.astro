@@ -1,0 +1,94 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import shelf from '../../content/shelf.json';
+import svg_leader from '../../svg/leader.svg?raw';
+import svg_mill from '../../svg/mill.svg?raw';
+const pieces = (await getCollection('notebook')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const latest = pieces[0];
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const month = (d: Date) => d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+const key = (t: string) => t.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-');
+const tagLine = (t: string[]) => t.map((x, i) => (i ? x.toLowerCase() === x ? x : (x.split(' ').length > 1 ? x : x.toLowerCase()) : x)).join(', ');
+const topics = [...new Set(pieces.flatMap((p) => p.data.tags))];
+---
+<Base title="The Notebook, by Md Ashikur Rahman" description="Observations, arguments and thoughts worth keeping, by Md Ashikur Rahman: about people, power, technology and whatever he happens to be reading." path="/notebook">
+<div class="pg nbpage">
+<div class="veil" aria-hidden="true"></div>
+
+<Nav current="notebook" />
+
+<section class="mast wrap" aria-labelledby="nb-title">
+<div class="mrule"></div>
+<div class="mline"><p>Kept by Ashik, in Rajshahi</p><p>Last updated {fmt(latest.data.date)}</p></div>
+<div class="mhead">
+<h1 id="nb-title">The Notebook</h1>
+<p class="mnote" aria-hidden="true"><span>sometimes <br>blunt</span><Fragment set:html={svg_leader} /></p>
+</div>
+<div class="mrule"></div>
+<div class="mintro">
+<p class="lead">Observations, arguments and thoughts worth keeping: about people, power, technology, and whatever I happen to be reading. Some of it is finished. Most of it is me thinking out loud, in public, so someone can tell me where I&rsquo;m wrong.</p>
+<p class="how">Pieces are written slowly and kept in the order they were written. Disagreement is welcome, and so are better sources.</p>
+</div>
+</section>
+
+<section class="feat" aria-labelledby="ft-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">I</span><span class="ft">The latest</span></p>
+<div class="fgrid">
+<article class="sheet big">
+<p class="d">{fmt(latest.data.date)}</p>
+<p class="tag">{tagLine(latest.data.tags)}</p>
+<h2 id="ft-h">{latest.data.title}</h2>
+<p class="x">{latest.data.excerpt}</p>
+<div class="srow"><a class="btn dark" href={`/notebook/${latest.id}/`}>Read the piece</a><span class="rt">{latest.data.readingTime} minute read</span></div>
+</article>
+{latest.data.drawing === 'windmill' && (
+<figure class="fart">
+<div class="vig2"><Fragment set:html={svg_mill} /></div>
+{latest.data.caption && <figcaption>{latest.data.caption}</figcaption>}
+</figure>)}
+</div>
+</div>
+</section>
+
+<section class="idx" aria-labelledby="ix-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">II</span><span class="ft">Everything so far</span></p>
+<div class="ixhead">
+<h2 class="h2" id="ix-h">All the pages.</h2>
+<div class="topics" role="group" aria-label="Filter by topic">
+<button type="button" class="tp on" data-t="all" aria-pressed="true">All</button>
+{topics.map((t) => <button type="button" class="tp" data-t={key(t)} aria-pressed="false">{t}</button>)}
+</div>
+</div>
+<div class="ixgrid">
+<ol class="entries">
+{pieces.map((p) => (
+<li data-t={p.data.tags.map(key).join(' ')}><a href={`/notebook/${p.id}/`}><span class="ed">{month(p.data.date)}</span><span class="eb"><span class="et">{p.data.title}</span><span class="ex">{p.data.summary || p.data.excerpt}</span></span><span class="em">{p.data.tags[0] ?? ''}<br>{p.data.readingTime} min</span></a></li>
+))}
+</ol>
+<aside class="margin">
+<div class="card note">
+<p class="cl">Reading now</p>
+<p class="cb">{shelf.readingNow.title}</p>
+<p class="cs">{shelf.readingNow.author}</p>
+<a href="/shelf">See the whole shelf</a>
+</div>
+<div class="card wb">
+<p class="cl">Write back</p>
+<p class="cb">Think I got something wrong? Good. Tell me where.</p>
+<a class="btn dark" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=ashikur.ayon190@gmail.com" target="_blank" rel="noopener">Email me</a>
+</div>
+</aside>
+</div>
+</div>
+</section>
+
+<Footer />
+
+</div>
+
+</Base>

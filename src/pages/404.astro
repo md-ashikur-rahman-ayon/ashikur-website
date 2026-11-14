@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+<Base title="Page not found | Md Ashikur Rahman" description="This page doesn’t exist, or has moved." path="/404">
+<div class="pg nfpage">
+<div class="veil" aria-hidden="true"></div>
+<Nav />
+<main class="nf wrap">
+<div class="nf-disc" aria-hidden="true"><span></span></div>
+<p class="folio"><span class="fn">404</span><span class="ft">Off the record</span></p>
+<h1>This track isn&rsquo;t on the record.</h1>
+<p>The page you were looking for doesn&rsquo;t exist, or it has moved. The needle&rsquo;s still on, though.</p>
+<div class="nf-b"><a class="btn dark big" href="/">Back to the start</a><a class="btn line big" href="/notebook">Read the notebook</a></div>
+</main>
+<Footer />
+</div>
+</Base>

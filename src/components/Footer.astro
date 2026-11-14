@@ -1,0 +1,22 @@
+---
+const year = new Date().getFullYear();
+const edited = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Dhaka' });
+---
+<footer class="foot" aria-label="Site footer">
+<div class="wrap">
+<div class="foot-in">
+<a class="fm" href="/">Ashik</a>
+<nav aria-label="Footer">
+<ul>
+<li><a href="/about">About</a></li>
+<li><a href="/#work">Work</a></li>
+<li><a href="/#places">Places</a></li>
+<li><a href="/shelf">Shelf</a></li>
+<li><a href="/notebook">Notebook</a></li>
+<li><a href="/#contact">Contact</a></li>
+</ul>
+</nav>
+<p class="fp">&copy; {year} Md Ashikur Rahman. All rights reserved.<br>Last edited: {edited}</p>
+</div>
+</div>
+</footer>

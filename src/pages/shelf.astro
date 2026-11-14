@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import shelf from '../content/shelf.json';
+import svg_leader from '../svg/leader.svg?raw';
+import svg_shelf from '../svg/shelf.svg?raw';
+const total = shelf.english.length + shelf.bangla.reduce((n, g) => n + g.books.length, 0);
+const PAL = [['#6E1E2B','#F3ECDD','#D9A441'],['#211B18','#D9A441','#F3ECDD'],['#D9A441','#211B18','#6E1E2B'],['#2F4A3F','#F3ECDD','#D9A441'],['#F3ECDD','#6E1E2B','#211B18'],['#294057','#F3ECDD','#D9A441'],['#B65A3A','#F3ECDD','#211B18']];
+const ORN = ['<circle cx="50" cy="50" r="18"/>','<path d="M50 30 L70 50 L50 70 L30 50Z"/>','<path d="M30 60 Q50 25 70 60"/><circle cx="50" cy="66" r="4"/>','<rect x="34" y="34" width="32" height="32" transform="rotate(45 50 50)"/>','<circle cx="50" cy="50" r="20"/><circle cx="50" cy="50" r="8"/>','<path d="M28 50 H72 M50 28 V72"/>'];
+const TILT = [-1.2, 0.8, -0.5, 1.4, -1, 0.6, 1.1];
+---
+<Base title="The Shelf: books that shaped Md Ashikur Rahman" description="The books that shaped how Md Ashikur Rahman thinks, in Bangla and English: Muhammed Zafar Iqbal, Humayun Ahmed, Orwell, Dostoevsky, Kafka and more." path="/shelf">
+<div class="pg shpage">
+<div class="veil" aria-hidden="true"></div>
+
+<Nav current="shelf" />
+
+<main>
+<section class="mast wrap" aria-labelledby="sh-title">
+<div class="mrule"></div>
+<div class="mline"><p>Kept by Ashik, in two languages</p><p>{total} books remembered, plenty forgotten</p></div>
+<div class="mhead">
+<h1 id="sh-title">The Shelf</h1>
+<p class="mnote" aria-hidden="true"><span>not a complete <br>list, on purpose</span><Fragment set:html={svg_leader} /></p>
+</div>
+<div class="mrule"></div>
+<div class="mintro">
+<p class="lead">This isn&rsquo;t a reading log. It&rsquo;s the books that shaped how I think, remembered as well as I can. Bangla science fiction came first, in primary school, then Kishor Alo and Biggan Chinta every month from third grade, and after that everything else.</p>
+<div class="how"><p>Some titles may be slightly misremembered, and many short stories never made it onto the list. One day each book will get a few lines of my own.</p>
+<div class="shnav"><a class="tp" href="#sh-en">In English</a><a class="tp" href="#sh-bn">In Bangla</a><a class="tp" href="#sh-mg">Every month</a></div></div>
+</div>
+</section>
+
+<section class="shart" aria-hidden="true"><div class="wrap"><Fragment set:html={svg_shelf} /></div></section>
+
+<section class="sh-en" id="sh-en" aria-labelledby="en-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">I</span><span class="ft">In English</span></p>
+<div class="two">
+<h2 class="h2" id="en-h">The ones that argued back.</h2>
+<p class="body">Orwell and Dostoevsky, a founder&rsquo;s biography, a book on courage, and a few thrillers read in one sitting. {shelf.english.length} of them so far.</p>
+</div>
+<ol class="covers">
+{shelf.english.map((bk, i) => {
+  const [bg, fg, ac] = PAL[i % PAL.length];
+  return (<li class="cv" style={`--bg:${bg};--fg:${fg};--ac:${ac};--r:${TILT[i % TILT.length]}deg`}><div class="cvin"><svg viewBox="0 0 100 100" aria-hidden="true" set:html={ORN[i % ORN.length]} /><p class="cvt">{bk.title}</p>{bk.author && <p class="cva">{bk.author}</p>}</div></li>);
+})}
+</ol>
+</div>
+</section>
+
+<section class="sh-bn" id="sh-bn" aria-labelledby="bn-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">II</span><span class="ft">In Bangla</span></p>
+<div class="two">
+<h2 class="h2" id="bn-h">Where it started.</h2>
+<p class="body">Long before anything else, there were robots, other planets and impossible inventions in Bangla. These are the ones I remember by name.</p>
+</div>
+{shelf.bangla.map((g) => (
+<div class="auth">
+<div class="ah"><p class="an">{g.author}</p><p class="abn" lang="bn">{g.authorBn}</p><p class="ac">{g.books.length} {g.note}</p></div>
+<ul class={`bl ${g.books.length > 30 ? 'four' : 'two-c'}`}>{g.books.map((t) => <li lang="bn">{t}</li>)}</ul>
+</div>))}
+</div>
+</section>
+
+<section class="sh-mg" id="sh-mg" aria-labelledby="mg-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">III</span><span class="ft">Every month</span></p>
+<div class="mg">
+<h2 class="h2" id="mg-h">Two magazines, since third grade.</h2>
+<div class="mgs">
+<div class="mgc a"><p class="mgt" lang="bn">কিশোর আলো</p><p class="mge">Kishor Alo</p><p class="mgd">Stories, science and everything else, for young readers, from Prothom Alo.</p></div>
+<div class="mgc b"><p class="mgt" lang="bn">বিজ্ঞানচিন্তা</p><p class="mge">Biggan Chinta</p><p class="mgd">Science, explained properly, every month.</p></div>
+</div>
+</div>
+<p class="later">Takes on individual books are coming. For now, if you think I&rsquo;m missing something obvious, <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=ashikur.ayon190@gmail.com" target="_blank" rel="noopener">tell me what to read next</a>.</p>
+</div>
+</section>
+</main>
+
+<Footer />
+
+</div>
+
+</Base>

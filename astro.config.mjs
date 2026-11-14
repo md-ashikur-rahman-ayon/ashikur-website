@@ -8,6 +8,7 @@ import keystatic from '@keystatic/astro';
 export default defineConfig({
   site: 'https://ashikur.safeshare.co',
   trailingSlash: 'ignore',
+  build: { inlineStylesheets: 'always' },
   adapter: vercel(),
   integrations: [
     react(),

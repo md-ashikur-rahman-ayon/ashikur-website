@@ -1,17 +1,29 @@
 @font-face{font-family:'League Gothic';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/league-gothic-latin-400-normal.woff2) format('woff2')}
-@font-face{font-family:'Bodoni Moda';font-style:normal;font-weight:400 900;font-display:swap;src:url(/fonts/bodoni-moda-latin-opsz-normal.woff2) format('woff2')}
-@font-face{font-family:'Bodoni Moda';font-style:italic;font-weight:400 900;font-display:swap;src:url(/fonts/bodoni-moda-latin-opsz-italic.woff2) format('woff2')}
-@font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url(/fonts/newsreader-latin-opsz-normal.woff2) format('woff2')}
-@font-face{font-family:'Newsreader';font-style:italic;font-weight:200 800;font-display:swap;src:url(/fonts/newsreader-latin-opsz-italic.woff2) format('woff2')}
+@font-face{font-family:'Bodoni Moda';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/bodoni-normal-v2.woff2) format('woff2')}
+@font-face{font-family:'Bodoni Moda';font-style:italic;font-weight:400 700;font-display:swap;src:url(/fonts/bodoni-italic-v2.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/newsreader-normal-v2.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:italic;font-weight:400 700;font-display:swap;src:url(/fonts/newsreader-italic-v2.woff2) format('woff2')}
 @font-face{font-family:'Reenie Beanie';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/reenie-beanie-latin-400-normal.woff2) format('woff2')}
 @font-face{font-family:'Tiro Bangla';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/tiro-bangla-bengali-400-normal.woff2) format('woff2')}
-@font-face{font-family:'Anek Bangla';font-style:normal;font-weight:100 800;font-display:swap;font-stretch:75% 125%;src:url(/fonts/anek-bangla-bengali-wdth-normal.woff2) format('woff2')}
+@font-face{font-family:'Anek Bangla';font-style:normal;font-weight:800;font-display:swap;font-stretch:75%;src:url(/fonts/anek-bangla-display.woff2) format('woff2')}
+/* fallback faces sized to match the web fonts, so nothing jumps when the fonts arrive */
+@font-face{font-family:'Newsreader fb geo';src:local('Georgia'),local('Gelasio');size-adjust:91.54%;ascent-override:80.29%;descent-override:28.95%;line-gap-override:0.00%}
+@font-face{font-family:'Newsreader fb tnr';src:local('Times New Roman'),local('Liberation Serif'),local('Tinos');size-adjust:100.55%;ascent-override:73.10%;descent-override:26.35%;line-gap-override:0.00%}
+@font-face{font-family:'Newsreader fb djs';src:local('DejaVu Serif');size-adjust:79.02%;ascent-override:93.02%;descent-override:33.54%;line-gap-override:0.00%}
+@font-face{font-family:'Bodoni Moda fb geo';src:local('Georgia'),local('Gelasio');size-adjust:104.41%;ascent-override:107.75%;descent-override:38.31%;line-gap-override:0.00%}
+@font-face{font-family:'Bodoni Moda fb tnr';src:local('Times New Roman'),local('Liberation Serif'),local('Tinos');size-adjust:114.69%;ascent-override:98.09%;descent-override:34.88%;line-gap-override:0.00%}
+@font-face{font-family:'Bodoni Moda fb djs';src:local('DejaVu Serif');size-adjust:90.13%;ascent-override:124.83%;descent-override:44.38%;line-gap-override:0.00%}
+@font-face{font-family:'Reenie Beanie fb ari';src:local('Arial'),local('Liberation Sans'),local('Arimo');size-adjust:78.28%;ascent-override:95.81%;descent-override:31.94%;line-gap-override:0.00%}
+@font-face{font-family:'Reenie Beanie fb djsans';src:local('DejaVu Sans');size-adjust:68.73%;ascent-override:109.13%;descent-override:36.38%;line-gap-override:0.00%}
+@font-face{font-family:'League Gothic fb ari';src:local('Arial'),local('Liberation Sans'),local('Arimo');size-adjust:58.79%;ascent-override:164.56%;descent-override:39.54%;line-gap-override:0.00%}
+@font-face{font-family:'League Gothic fb djsans';src:local('DejaVu Sans');size-adjust:51.62%;ascent-override:187.43%;descent-override:45.04%;line-gap-override:0.00%}
 
 /* ===== home.css ===== */
 @property --k{syntax:'<integer>';inherits:false;initial-value:20}
 body{margin:0;background:#F3ECDD}
+.pg img{height:auto}
 .pg{--paper:#F3ECDD;--sheet:#FAF5EA;--wall:#E7DCC6;--ink:#211B18;--burg:#6E1E2B;--brass:#D9A441;--soft:#5E5248;
---txt:'Newsreader',Georgia,serif;--disp:'Bodoni Moda','Didot',Georgia,serif;--post:'League Gothic','Arial Narrow',sans-serif;--hand:'Reenie Beanie','Segoe Print',cursive;
+--txt:'Newsreader','Newsreader fb geo','Newsreader fb tnr','Newsreader fb djs',serif;--disp:'Bodoni Moda','Bodoni Moda fb geo','Bodoni Moda fb tnr','Bodoni Moda fb djs',serif;--post:'League Gothic','League Gothic fb ari','League Gothic fb djsans',sans-serif;--hand:'Reenie Beanie','Reenie Beanie fb ari','Reenie Beanie fb djsans',cursive;
 --ease:cubic-bezier(.22,.61,.36,1);
 container-type:inline-size;position:relative;background:var(--paper);color:var(--ink);
 font-family:var(--txt);font-size:clamp(16px,1.3cqw,21px);line-height:1.55;overflow:clip;
@@ -424,8 +436,8 @@ box-shadow:0 1px 1px rgba(33,27,24,.25),0 18px 34px -14px rgba(33,27,24,.5)}
 @keyframes count2{from{--k:1}}
 .pg.rvon .rv{opacity:0;transition:opacity 1.5s cubic-bezier(.4,0,.2,1) var(--rd,0ms)}
 .pg.rvon .rv.in{opacity:1}
-.pg.rvon .rv img,.pg.rvon .rv .darj,.pg.rvon .rv.chart-wrap,.pg.rvon .rv.paint-wrap,.pg.rvon .rv .seal{filter:brightness(1.9) contrast(.45) saturate(.2);transition:filter 2.6s cubic-bezier(.3,0,.2,1) calc(var(--rd,0ms) + .15s)}
-.pg.rvon .rv.in img,.pg.rvon .rv.in .darj,.pg.rvon .rv.in.chart-wrap,.pg.rvon .rv.in.paint-wrap{filter:none}
+.pg.rvon .rv img,.pg.rvon .rv .darj,.pg.rvon .rv.chart-wrap,.pg.rvon .rv.paint-wrap,.pg.rvon .rv .seal{filter:brightness(1.9) contrast(.45) saturate(.2)}
+.pg.rvon .rv.in img,.pg.rvon .rv.in .darj,.pg.rvon .rv.in.chart-wrap,.pg.rvon .rv.in.paint-wrap,.pg.rvon .rv.in .seal{filter:none;transition:filter 2.6s cubic-bezier(.3,0,.2,1) calc(var(--rd,0ms) + .15s)}
 .pg.rvon .rv.in .seal{filter:drop-shadow(0 8px 10px rgba(33,27,24,.22))}
 .pg.rvon .bench.rv.in img{filter:grayscale(1) contrast(1.12) brightness(.96)}
 @supports (animation-timeline:view()){
@@ -926,3 +938,11 @@ background:conic-gradient(from 30deg,rgba(255,255,255,0) 0deg,rgba(255,255,255,.
 .nav .mark{font-family:var(--hand);text-transform:none;letter-spacing:.01em;font-size:3.2cqw;line-height:.8;padding-top:.2em}
 .foot .fm{font-family:var(--hand);text-transform:none;letter-spacing:.01em;font-size:4.8cqw;line-height:.8}
 @container (max-width:640px){.nav .mark{font-size:36px}.foot .fm{font-size:46px}}
+
+/* looping decorations only run while they are on screen */
+.chart .tw,.chart .halo,.map .pulse,.painting .steam,.mill .sails,.vinyl{animation-play-state:paused}
+.inview .tw,.inview .halo,.inview .pulse,.inview .steam,.mill.inview .sails,.vinyl.inview{animation-play-state:running}
+.mepic{display:contents}
+
+/* web fonts switch on just after the first paint (see Base.astro); until then the matched fallbacks show */
+html:not(.fl) .pg{--txt:'Newsreader fb geo','Newsreader fb tnr','Newsreader fb djs',serif;--disp:'Bodoni Moda fb geo','Bodoni Moda fb tnr','Bodoni Moda fb djs',serif;--post:'League Gothic fb ari','League Gothic fb djsans',sans-serif;--hand:'Reenie Beanie fb ari','Reenie Beanie fb djsans',cursive}

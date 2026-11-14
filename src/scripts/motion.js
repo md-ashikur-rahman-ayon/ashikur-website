@@ -6,8 +6,7 @@ export function initMotion(signal) {
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // the star chart answers the pointer: hover a star to light its lines, and the sky drifts a little
-  var chart = pg.querySelector('.chart');
-  if (chart) {
+  var bindChart = function (chart) {
     var stars = chart.querySelectorAll('.star'), lines = chart.querySelectorAll('[data-a]');
     var on = function (k) {
       chart.classList.add('focus');
@@ -41,7 +40,8 @@ export function initMotion(signal) {
       });
       chart.addEventListener('mouseleave', function () { layers.forEach(function (g) { g.style.transform = ''; }); });
     }
-  }
+  };
+  var chart0 = pg.querySelector('.chart'); if (chart0) bindChart(chart0);
 
   // the welcome record: on a fresh visit, tapping it starts the music and opens the site.
   // Coming back to this page in the same visit, there is no record: just the same soft fade as every page.
@@ -116,8 +116,7 @@ export function initMotion(signal) {
   }
 
   // the travel map: hover or tap a place to fly the route; it tours by itself while nobody touches it
-  var map = pg.querySelector('.map');
-  if (map) {
+  var bindMap = function (map) {
     var tgs = map.querySelectorAll('.tg'), lands = map.querySelectorAll('.land.seen');
     var cur = -1, touched = false, tour = null;
     var show = function (k) {
@@ -138,6 +137,33 @@ export function initMotion(signal) {
       g.addEventListener('mouseleave', function () { show(-1); });
       g.addEventListener('blur', function () { show(-1); });
     });
+  };
+  var map0 = pg.querySelector('.map'); if (map0) bindMap(map0);
+
+  // the star chart and the map are big drawings: they load just before they scroll into view (or once the page is idle)
+  pg.querySelectorAll('[data-svg]').forEach(function (w) {
+    var done = false, io2 = null;
+    var load = function () {
+      if (done) return; done = true; if (io2) io2.disconnect();
+      fetch(w.dataset.svg).then(function (r) { return r.text(); }).then(function (t) {
+        if (!w.isConnected) return;
+        w.innerHTML = t; w.style.aspectRatio = '';
+        var c = w.querySelector('.chart'); if (c) bindChart(c);
+        var m = w.querySelector('.map'); if (m) bindMap(m);
+      }).catch(function () { done = false; });
+    };
+    if ('IntersectionObserver' in window) {
+      io2 = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) load(); }, { rootMargin: '1200px 0px' });
+      io2.observe(w);
+    }
+    var idle = function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 1500); })(load, { timeout: 4000 }); };
+    if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle, S);
+  });
+
+  // looping decorations (twinkling stars, map pulses, steam, the spinning record) pause while off screen
+  if ('IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (es) { es.forEach(function (e) { e.target.classList.toggle('inview', e.isIntersecting); }); }, { rootMargin: '100px 0px' });
+    pg.querySelectorAll('.chart-wrap,.route-wrap,.paint-wrap,.vinyl,svg.mill').forEach(function (el) { vio.observe(el); });
   }
 
   // numbers count up from zero the first time they come into view

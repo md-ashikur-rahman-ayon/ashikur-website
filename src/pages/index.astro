@@ -4,7 +4,6 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import svg_leader from '../svg/leader.svg?raw';
-import svg_constellation from '../svg/constellation.svg?raw';
 import svg_label from '../svg/label.svg?raw';
 import svg_seal_ru from '../svg/seal-ru.svg?raw';
 import svg_seal_sf from '../svg/seal-sf.svg?raw';
@@ -15,7 +14,6 @@ import svg_seal_od from '../svg/seal-od.svg?raw';
 import svg_eng_leap from '../svg/eng-leap.svg?raw';
 import svg_eng_scope from '../svg/eng-scope.svg?raw';
 import svg_eng_fire from '../svg/eng-fire.svg?raw';
-import svg_route from '../svg/route.svg?raw';
 import svg_stamp_ru from '../svg/stamp-ru.svg?raw';
 import svg_stamp_vn from '../svg/stamp-vn.svg?raw';
 import svg_stamp_in from '../svg/stamp-in.svg?raw';
@@ -33,6 +31,7 @@ const person = {
 const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Md Ashikur Rahman', url: 'https://ashikur.safeshare.co/' };
 ---
 <Base title="Md Ashikur Rahman (Ashik), Rajshahi" description="Md Ashikur Rahman, known as Ashik or Ayon, from Rajshahi, Bangladesh. Co-founder and Head of Product at RareDev, co-founder of SLSN, debater, reader and a record of someone still becoming." path="/" jsonLd={[website, person]}>
+<link slot="head" rel="preload" as="image" href="/img/portrait-halftone-1200.avif" type="image/avif" fetchpriority="high">
 <div class="pg">
 <div class="veil" aria-hidden="true"></div>
 <div class="loader" role="dialog" aria-label="Welcome">
@@ -54,7 +53,7 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'M
 <h1 class="name">Ashik</h1>
 </div>
 <div class="spot" aria-hidden="true"></div>
-<img class="me" src="/img/portrait-halftone.png" alt="Portrait of Ashik in glasses and a dark t-shirt, printed in burgundy halftone dots">
+<picture class="mepic"><source type="image/avif" srcset="/img/portrait-halftone-1200.avif"><img class="me" src="/img/portrait-halftone-1200.webp" width="1200" height="1499" fetchpriority="high" decoding="async" alt="Portrait of Ashik in glasses and a dark t-shirt, printed in burgundy halftone dots"></picture>
 <p class="note" aria-hidden="true"><span>Ayon, to some<br>people</span><Fragment set:html={svg_leader} /></p>
 <p class="plate">Rajshahi, 2026</p>
 </section>
@@ -69,7 +68,7 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'M
 <p>Lately the dots have started to connect. They were always the same habit: understand a thing, make a thing, question it, and try to make it better.</p>
 </div>
 </div>
-<div class="chart-wrap"><Fragment set:html={svg_constellation} /></div>
+<div class="chart-wrap" data-svg="/svg/constellation.svg" style="aspect-ratio:1314/640"></div>
 </div>
 </section>
 
@@ -83,7 +82,7 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'M
 </blockquote>
 <div class="bcol">
 <figure class="print bench">
-<img src="/img/bench3.jpg" alt="Ashik sitting on a waiting-room bench in a polka-dot shirt, legs crossed, looking away in thought">
+<img src="/img/bench3-800.webp" srcset="/img/bench3-400.webp 400w, /img/bench3-800.webp 800w, /img/bench3-1100.webp 1100w" sizes="(max-width:640px) 88vw, 37vw" width="1100" height="1101" loading="lazy" decoding="async" alt="Ashik sitting on a waiting-room bench in a polka-dot shirt, legs crossed, looking away in thought">
 <figcaption>Thinking, or waiting for the bus. Usually both.</figcaption>
 </figure>
 </div>
@@ -203,7 +202,7 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'M
 <h2 class="h2" id="pl-h">The world, getting larger.</h2>
 <p class="body">The first time I represented Bangladesh abroad, it took me 298 kilometres from home. The next time, nearly five thousand. Every border since has made the map bigger and my certainty a little smaller.</p>
 </div>
-<div class="route-wrap"><Fragment set:html={svg_route} /></div>
+<div class="route-wrap" data-svg="/svg/route.svg" style="aspect-ratio:1314/700"></div>
 
 <div class="trip ru">
 <div class="tx">
@@ -212,20 +211,20 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'M
 <p class="geo">43.4&deg; N, 39.9&deg; E</p>
 <p>I represented Bangladesh at the International Scientific Conference on Ecology and Climate Change, presented on environmental solutions, and came home with an Outstanding Presentation Award.</p>
 </div>
-<figure class="print p1"><img src="/img/buran.jpg" alt="Ashik standing in front of the Buran space shuttle in Sirius, Russia"><figcaption>With Buran, the Soviet space shuttle. I didn&rsquo;t expect that either.</figcaption></figure>
-<figure class="print p2"><img src="/img/flag.jpg" alt="Ashik holding the flag of Bangladesh at the conference"><figcaption>Bangladesh, in the room.</figcaption></figure>
+<figure class="print p1"><img src="/img/buran-800.webp" srcset="/img/buran-400.webp 400w, /img/buran-800.webp 800w, /img/buran-1200.webp 1200w" sizes="(max-width:640px) 88vw, 36vw" width="1200" height="1165" loading="lazy" decoding="async" alt="Ashik standing in front of the Buran space shuttle in Sirius, Russia"><figcaption>With Buran, the Soviet space shuttle. I didn&rsquo;t expect that either.</figcaption></figure>
+<figure class="print p2"><img src="/img/flag-800.webp" srcset="/img/flag-400.webp 400w, /img/flag-800.webp 800w, /img/flag-1000.webp 1000w" sizes="(max-width:640px) 61vw, 21vw" width="1000" height="1078" loading="lazy" decoding="async" alt="Ashik holding the flag of Bangladesh at the conference"><figcaption>Bangladesh, in the room.</figcaption></figure>
 </div>
 
 <div class="trip vn">
-<figure class="print p1"><img src="/img/boat.jpg" alt="Ashik and three friends in orange life jackets on a small wooden boat"><figcaption>Hue, on the water.</figcaption></figure>
-<figure class="print p2"><img src="/img/hat.jpg" alt="Ashik smiling under a conical hat, giving a thumbs up"><figcaption>The hat stayed on all day.</figcaption></figure>
+<figure class="print p1"><img src="/img/boat-800.webp" srcset="/img/boat-400.webp 400w, /img/boat-800.webp 800w, /img/boat-1200.webp 1200w" sizes="(max-width:640px) 87vw, 44vw" width="1200" height="1200" loading="lazy" decoding="async" alt="Ashik and three friends in orange life jackets on a small wooden boat"><figcaption>Hue, on the water.</figcaption></figure>
+<figure class="print p2"><img src="/img/hat-800.webp" srcset="/img/hat-400.webp 400w, /img/hat-800.webp 800w, /img/hat-1000.webp 1000w" sizes="(max-width:640px) 63vw, 21vw" width="1000" height="999" loading="lazy" decoding="async" alt="Ashik smiling under a conical hat, giving a thumbs up"><figcaption>The hat stayed on all day.</figcaption></figure>
 <div class="tx">
 <Fragment set:html={svg_stamp_vn} /><h3>Vietnam</h3>
 <p class="when">Doing Good, a UWC short course, July 2026</p>
 <p class="geo">16.5&deg; N, 107.6&deg; E</p>
 <p>Young people from many countries, living together and arguing, kindly, about what it really takes to change a community.</p>
 </div>
-<figure class="print p3"><img src="/img/group.jpg" alt="The whole short-course group outside a yellow house with blue shutters"><figcaption>Everyone, on the last day.</figcaption></figure>
+<figure class="print p3"><img src="/img/group-800.webp" srcset="/img/group-400.webp 400w, /img/group-800.webp 800w, /img/group-1400.webp 1400w" sizes="(max-width:640px) 87vw, 52vw" width="1400" height="787" loading="lazy" decoding="async" alt="The whole short-course group outside a yellow house with blue shutters"><figcaption>Everyone, on the last day.</figcaption></figure>
 </div>
 
 <div class="trip in">
@@ -235,8 +234,8 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'M
 <p class="geo">27.0&deg; N, 88.3&deg; E</p>
 <p>The Indo-Bangladesh Scouts Friendship Camp. Not my first time abroad, but the first time I went to represent Bangladesh: two countries, one campsite, and the start of all this.</p>
 </div>
-<figure class="print p1"><img src="/img/darj1.jpg" alt="Ashik leaning on a big red heart beside the blue letters of the I love Darjeeling sign, hills behind"><figcaption>Darjeeling, under a very clear sky.</figcaption></figure>
-<figure class="print p2"><img src="/img/darj2.jpg" alt="Ashik with arms crossed in front of a foundation stone plaque, between the flag of India and a scouts flag"><figcaption>Snow View campsite, Kurseong.</figcaption></figure>
+<figure class="print p1"><img src="/img/darj1-800.webp" srcset="/img/darj1-400.webp 400w, /img/darj1-800.webp 800w, /img/darj1-1200.webp 1200w" sizes="(max-width:640px) 87vw, 36vw" width="1200" height="1200" loading="lazy" decoding="async" alt="Ashik leaning on a big red heart beside the blue letters of the I love Darjeeling sign, hills behind"><figcaption>Darjeeling, under a very clear sky.</figcaption></figure>
+<figure class="print p2"><img src="/img/darj2-800.webp" srcset="/img/darj2-400.webp 400w, /img/darj2-800.webp 800w, /img/darj2-900.webp 900w" sizes="(max-width:640px) 62vw, 21vw" width="900" height="1199" loading="lazy" decoding="async" alt="Ashik with arms crossed in front of a foundation stone plaque, between the flag of India and a scouts flag"><figcaption>Snow View campsite, Kurseong.</figcaption></figure>
 </div>
 </div>
 </section>

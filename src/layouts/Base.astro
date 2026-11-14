@@ -18,6 +18,7 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <html lang="en" transition:animate="none">
 <head>
 <meta charset="utf-8">
+<script is:inline>(function(){var d=document.documentElement,on=function(){d.classList.add('fl')};try{if(sessionStorage.getItem('fl'))on()}catch(e){}if(!d.classList.contains('fl'))requestAnimationFrame(function(){setTimeout(function(){on();try{sessionStorage.setItem('fl','1')}catch(e){}},0)});document.addEventListener('astro:after-swap',on)})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
 <meta name="description" content={description}>
@@ -37,8 +38,7 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="sitemap" href="/sitemap-index.xml">
-<link rel="preload" href="/fonts/bodoni-moda-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<slot name="head" />
 {ld.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
 <ClientRouter />
 </head>

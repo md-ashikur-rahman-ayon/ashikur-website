@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection, render } from 'astro:content';
+import svg_mill from '../../svg/mill.svg?raw';
+
+export async function getStaticPaths() {
+  const pieces = await getCollection('notebook');
+  return pieces.map((p) => ({ params: { slug: p.id }, props: { piece: p } }));
+}
+const { piece } = Astro.props;
+const { Content } = await render(piece);
+const d = piece.data;
+const fmt = (x: Date) => x.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const iso = d.date.toISOString().slice(0, 10);
+const path = `/notebook/${piece.id}/`;
+const mail = `https://mail.google.com/mail/?view=cm&fs=1&to=ashikur.ayon190@gmail.com&su=${encodeURIComponent(d.shortTitle || d.title)}`;
+const ld = {
+  '@context': 'https://schema.org', '@type': 'BlogPosting', headline: d.title, datePublished: iso,
+  author: { '@type': 'Person', name: 'Md Ashikur Rahman', url: 'https://ashikur.safeshare.co/about/' },
+  keywords: d.tags, url: 'https://ashikur.safeshare.co' + path,
+};
+---
+<Base title={`${d.title} | Md Ashikur Rahman`} description={d.summary || d.excerpt} path={path} type="article" jsonLd={ld}>
+<div class="pg stpage">
+<div class="veil" aria-hidden="true"></div>
+<Nav current="notebook" />
+
+<main>
+<article class="story-a">
+<header class="sthead wrap">
+<a class="back" href="/notebook">Back to the notebook</a>
+{d.tags.length > 0 && <p class="sttags" set:html={d.tags.join(' &middot; ')} />}
+<h1>{d.title}</h1>
+<div class="stmeta">
+<p>By Md Ashikur Rahman</p>
+<p><time datetime={iso}>{fmt(d.date)}</time></p>
+<p>{d.readingTime} minute read</p>
+</div>
+</header>
+
+{d.drawing === 'windmill' && <figure class="stfig wrap"><div class="vig2"><Fragment set:html={svg_mill} /></div></figure>}
+
+<div class="stbody wrap">
+<Content />
+<p class="sign">A.</p>
+</div>
+
+<footer class="stfoot wrap">
+<div class="sf-a">
+<p class="cl">Write back</p>
+<p class="sf-t">Think I got something wrong? Good. Tell me where.</p>
+<a class="btn dark" href={mail} target="_blank" rel="noopener">Email me</a>
+</div>
+{d.mediumUrl && (
+<div class="sf-b">
+<p class="cl">Also on Medium</p>
+<p class="sf-t">This piece first appeared on Medium, where you can leave a response too.</p>
+<a class="btn line" href={d.mediumUrl} target="_blank" rel="noopener">Read it on Medium</a>
+</div>)}
+<div class="sf-c">
+<p class="cl">More pages</p>
+<p class="sf-t">The rest of the notebook, in the order it was written.</p>
+<a class="btn line" href="/notebook">All the pages</a>
+</div>
+</footer>
+</article>
+</main>
+
+<Footer />
+</div>
+</Base>

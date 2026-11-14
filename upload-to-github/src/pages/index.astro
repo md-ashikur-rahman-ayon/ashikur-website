@@ -1,0 +1,306 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import svg_leader from '../svg/leader.svg?raw';
+import svg_constellation from '../svg/constellation.svg?raw';
+import svg_label from '../svg/label.svg?raw';
+import svg_seal_ru from '../svg/seal-ru.svg?raw';
+import svg_seal_sf from '../svg/seal-sf.svg?raw';
+import svg_seal_bd from '../svg/seal-bd.svg?raw';
+import svg_seal_tk from '../svg/seal-tk.svg?raw';
+import svg_seal_iu from '../svg/seal-iu.svg?raw';
+import svg_seal_od from '../svg/seal-od.svg?raw';
+import svg_eng_leap from '../svg/eng-leap.svg?raw';
+import svg_eng_scope from '../svg/eng-scope.svg?raw';
+import svg_eng_fire from '../svg/eng-fire.svg?raw';
+import svg_route from '../svg/route.svg?raw';
+import svg_stamp_ru from '../svg/stamp-ru.svg?raw';
+import svg_stamp_vn from '../svg/stamp-vn.svg?raw';
+import svg_stamp_in from '../svg/stamp-in.svg?raw';
+import svg_shelf from '../svg/shelf.svg?raw';
+const pieces = (await getCollection('notebook')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const latest = pieces[0];
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const person = {
+  '@context': 'https://schema.org', '@type': 'Person', name: 'Md Ashikur Rahman', alternateName: ['Ashik', 'Ayon'],
+  url: 'https://ashikur.safeshare.co/', image: 'https://ashikur.safeshare.co/img/portrait-halftone.png',
+  jobTitle: 'Co-founder and Head of Product', worksFor: { '@type': 'Organization', name: 'RareDev' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Rajshahi', addressCountry: 'BD' },
+  sameAs: ['https://www.linkedin.com/in/md-ashikur-rahman-ayon/', 'https://x.com/md_ashikur_ayon', 'https://www.instagram.com/md_ashikur_ayon', 'https://www.facebook.com/md.ashikur.ayon', 'https://medium.com/@md_ashikur_rahman_ayon', 'https://www.crunchbase.com/person/md-ashikur-rahman'],
+};
+const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Md Ashikur Rahman', url: 'https://ashikur.safeshare.co/' };
+---
+<Base title="Md Ashikur Rahman (Ashik), Rajshahi" description="Md Ashikur Rahman, known as Ashik or Ayon, from Rajshahi, Bangladesh. Co-founder and Head of Product at RareDev, co-founder of SLSN, debater, reader and a record of someone still becoming." path="/" jsonLd={[website, person]}>
+<div class="pg">
+<div class="veil" aria-hidden="true"></div>
+<div class="loader" role="dialog" aria-label="Welcome">
+<div class="ld-in">
+<button class="ld-disc" type="button" aria-label="Tap the record to start the music and enter the site"><span class="ld-lbl"></span></button>
+<p class="ld-hint" aria-hidden="true">tap the record to begin</p>
+</div>
+</div>
+
+<Nav current="home" />
+
+<section class="hero" aria-label="Introduction">
+<div class="hcol">
+<div class="lede">
+<p class="line">A record of someone still becoming.</p>
+<p class="who">Md Ashikur Rahman, from Rajshahi, Bangladesh. I build products, argue for the fun of it, read in two languages, and keep asking whether the thing I&rsquo;m making actually helps anyone.</p>
+</div>
+<p class="bangla" lang="bn" aria-hidden="true">আশিক</p>
+<h1 class="name">Ashik</h1>
+</div>
+<div class="spot" aria-hidden="true"></div>
+<img class="me" src="/img/portrait-halftone.png" alt="Portrait of Ashik in glasses and a dark t-shirt, printed in burgundy halftone dots">
+<p class="note" aria-hidden="true"><span>Ayon, to some<br>people</span><Fragment set:html={svg_leader} /></p>
+<p class="plate">Rajshahi, 2026</p>
+</section>
+
+<section class="sky" aria-labelledby="sky-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">I</span><span class="ft">The stars</span></p>
+<div class="two">
+<h2 class="h2" id="sky-h">For years they looked like scattered stars.</h2>
+<div class="body">
+<p>Telescopes. Debate. Posters. A file-sharing product. A flooded village. A shelf of Bangla science fiction. I followed whatever caught my curiosity, built something with it, learned, and moved on.</p>
+<p>Lately the dots have started to connect. They were always the same habit: understand a thing, make a thing, question it, and try to make it better.</p>
+</div>
+</div>
+<div class="chart-wrap"><Fragment set:html={svg_constellation} /></div>
+</div>
+</section>
+
+<section class="liner" aria-labelledby="liner-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">II</span><span class="ft">What I hold to</span></p>
+
+<div class="qrow">
+<blockquote class="q"><span class="qm" aria-hidden="true">&ldquo;</span>
+<p id="liner-h">Life is short. It is also long enough to build something meaningful.</p>
+</blockquote>
+<div class="bcol">
+<figure class="print bench">
+<img src="/img/bench3.jpg" alt="Ashik sitting on a waiting-room bench in a polka-dot shirt, legs crossed, looking away in thought">
+<figcaption>Thinking, or waiting for the bus. Usually both.</figcaption>
+</figure>
+</div>
+</div>
+<div class="four">
+<div><h3>Humanity</h3><p>Technology is worth building only when it makes someone&rsquo;s life better. Progress means little if nobody&rsquo;s life improves.</p></div>
+<div><h3>Precision</h3><p>Getting the details right is part of the creative work, not a chore after it. How a thing is made shows what you thought of the people using it.</p></div>
+<div><h3>Accountability</h3><p>I try to own what I choose, how I spend my hours, and what I add to the room. Ideas and ambition are the easy half.</p></div>
+<div><h3>Argument</h3><p>I like questions more than conclusions. An idea isn&rsquo;t ready until someone has properly tried to break it.</p></div>
+</div>
+</div>
+</section>
+
+<section class="rare" id="work" aria-labelledby="rare-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">III</span><span class="ft">The work</span></p>
+<p class="kicker">Co-founder and Head of Product, since January 2026</p>
+<div class="rare-top">
+<h2 id="rare-h">RareDev</h2>
+<div class="label-disc" aria-hidden="true">
+<span class="count" data-n="20000"></span>
+<span class="cap">people using SafeShare</span>
+</div>
+</div>
+<p class="lead">RareDev is where my ideas stopped being only ideas. I&rsquo;m learning, the long way, how design, users, business and plain hard execution have to meet before a thought becomes something people rely on.</p>
+<ol class="path">
+<li><span class="st">Idea</span><p>Sharing a file shouldn&rsquo;t mean giving it away.</p></li>
+<li><span class="st">Product</span><p>SafeShare: private file sharing, shaped from the first version onwards.</p></li>
+<li><span class="st">People</span><p>More than 20,000 of them, across the world, using it.</p></li>
+<li><span class="st">Next</span><p>A version built for companies, and Eflow, a living island for Windows.</p></li>
+</ol>
+<div class="prods">
+<div><h3>SafeShare</h3><p>Privacy-first file sharing. I&rsquo;ve looked after the whole product: what it should be, who it&rsquo;s for, what gets built next.</p><a href="https://safeshare.co">safeshare.co</a></div>
+<div><h3>Eflow</h3><p>Assistants, notifications and everyday tools in one small island on the Windows screen. I work on the product, the brand and how we tell its story.</p><a href="https://eflow.safeshare.co">eflow.safeshare.co</a></div>
+</div>
+</div>
+</section>
+
+
+<section class="slsn" aria-labelledby="slsn-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">IV</span><span class="ft">The network</span></p>
+<div class="sl-grid">
+<div class="sl-a">
+<p class="kicker">Co-founder and Director of Strategy, since August 2025</p>
+<h2 id="slsn-h">SLSN</h2>
+<a class="btn dark" href="https://slsn.community">slsn.community</a>
+<div class="sl-stats"><p><span class="sn" data-n="14">14</span><span class="sl">medals won</span></p><p><span class="sn" data-n="4">4</span><span class="sl">countries so far</span></p></div>
+</div>
+<div class="sl-b">
+<h3>Sustainability &amp; Life Sciences Network</h3>
+<p class="sl-l">Science and sustainability, run by young people. We bring olympiads to Bangladesh, send students abroad to compete, and look for problems close to home worth working on.</p>
+<ul class="sl-list">
+<li><span class="sl-t">BOCE</span><p>The Bangladesh Olympiad on Climate Change &amp; Environmental Issues, which we organise with Zero Competitions. It picks the national team for the international olympiad in Sirius, Russia, and in 2026 that team made history.</p></li>
+<li><span class="sl-t">BIDE</span><p>Another olympiad we bring to Bangladesh. I lead the graphics team here.</p></li>
+<li><span class="sl-t">Quitora</span><p>Software meant to help prevent dengue, the illness every monsoon brings back, built around a reward model. Still being built.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section class="record" aria-labelledby="rec-h">
+<div class="wrap sec">
+<div class="vinyl" aria-hidden="true"><div class="grooves"></div><Fragment set:html={svg_label} /></div>
+<svg class="arm" viewBox="0 0 300 330" aria-hidden="true"><circle cx="258" cy="46" r="26" class="a1"/><circle cx="258" cy="46" r="9" class="a2"/><path d="M258 46 L 232 190 L 150 262" class="a3"/><path d="M142 250 l 28 20 l -10 14 l -28 -20 z" class="a4"/></svg>
+<p class="folio"><span class="fn">V</span><span class="ft">Other rooms</span></p>
+<h2 class="h2" id="rec-h">Other rooms, the same habit.</h2>
+<p class="intro">Find the thing worth doing, take responsibility for it, and work with people until it exists. RareDev and SLSN played on Side A. These are the rest, in the order they began.</p>
+
+<div class="sleeve">
+<div class="sl-head"><p class="side">Side B</p><p class="sl-sub">Other rooms, the same habit<br><em>Recorded in Rajshahi, 2024 to now</em></p></div>
+<ol class="tracks">
+<li><span class="tn">B1</span><div class="tb"><p class="tr"><span class="tt"><span lang="bn">উদ্ধার</span> Uddhar</span><span class="dots" aria-hidden="true"></span><span class="td">Aug 2024 to now</span></p><p class="trole">Admin</p><p class="tx2">Flood rescue, relief and the volunteers behind them. Work only counts if it reaches people.</p></div></li>
+<li><span class="tn">B2</span><div class="tb"><p class="tr"><span class="tt">Bangladesh Olympiad on Astronomy &amp; Astrophysics</span><span class="dots" aria-hidden="true"></span><span class="td">Dec 2024 to now</span></p><p class="trole">Senior Associate</p><p class="tx2">I joined as a graphics intern. Now I oversee the platforms and paperwork a national science olympiad runs on. My way of staying close to the sky.</p></div></li>
+<li><span class="tn">B3</span><div class="tb"><p class="tr"><span class="tt">Harimohan Govt. High School Debate Club</span><span class="dots" aria-hidden="true"></span><span class="td">Feb 2025 to Feb 2026</span></p><p class="trole">President</p><p class="tx2">Two hundred members, and for the first time the alumni back in the room.</p></div></li>
+<li><span class="tn">B4</span><div class="tb"><p class="tr"><span class="tt">Chapainawabganj Debating Club</span><span class="dots" aria-hidden="true"></span><span class="td">Mar 2025 to Jun 2026</span></p><p class="trole">Assistant General Secretary</p><p class="tx2">Sessions, events and the quiet admin that keeps a club going.</p></div></li>
+<li><span class="tn">B5</span><div class="tb"><p class="tr"><span class="tt">Bangladesh United Astronomical Forum</span><span class="dots" aria-hidden="true"></span><span class="td">Apr 2025 to Sep 2026</span></p><p class="trole">Head of the Creative Department</p><p class="tx2">Led the graphics team, and kept everything looking like one careful hand made it.</p></div></li>
+<li><span class="tn">B6</span><div class="tb"><p class="tr"><span class="tt">Bangladesh Space Research Society</span><span class="dots" aria-hidden="true"></span><span class="td">Apr to Dec 2025</span></p><p class="trole">Executive, Creative Department</p><p class="tx2">Space-science awareness programmes, workshops and seminars across the country.</p></div></li>
+</ol>
+<p class="sl-foot">All tracks played with other people. Liner notes on request.</p>
+</div>
+
+<div class="honours">
+<div class="ho-head"><h3 class="ht">Honours along the way</h3><p>A few kind words from rooms I didn&rsquo;t expect to be in.</p></div>
+<ul>
+<li><Fragment set:html={svg_seal_ru} /><p class="hn">Outstanding Presentation Award</p><p class="hp">International Olympiad on Climate Change, Russia</p><p class="hy">Sep 2025</p></li>
+<li><Fragment set:html={svg_seal_sf} /><p class="hn">Champion</p><p class="hp">9th Rajshahi College Science Fest</p><p class="hy">Feb 2026</p></li>
+<li><Fragment set:html={svg_seal_bd} /><p class="hn">First runner-up</p><p class="hp">BDOAA Astro Poster Competition</p><p class="hy">Apr 2025</p></li>
+<li><Fragment set:html={svg_seal_tk} /><p class="hn">Selected</p><p class="hp">The Knowledge Society, 15% acceptance</p><p class="hy">2026</p></li>
+<li><Fragment set:html={svg_seal_iu} /><p class="hn">First runner-up</p><p class="hp">IUT Techathon</p><p class="hy">2026</p></li>
+<li><Fragment set:html={svg_seal_od} /><p class="hn">Essay accepted</p><p class="hp">Open Dialogue Russia</p><p class="hy">2026</p></li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="wip" aria-labelledby="wip-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">VI</span><span class="ft">Open questions</span></p>
+<div class="two">
+<h2 class="h2" id="wip-h">Questions I haven&rsquo;t finished with.</h2>
+<p class="body">Research, for me, is a question I can&rsquo;t put down. These three are still open, which is the point.</p>
+</div>
+<div class="qs">
+<article class="qa"><div class="vig"><Fragment set:html={svg_eng_leap} /></div><h3>Can a late-developing economy skip a stage instead of repeating it?</h3><div class="qb"><p>The Structured Leapfrogging Investment Model: a framework for the order in which a country invests, so it can jump ahead in technology and keep the growth.</p><p class="since">Open since December 2025</p><button class="btn" type="button">Learn more</button></div></article>
+<article class="qa"><div class="vig"><Fragment set:html={svg_eng_scope} /></div><h3>Why do so few people in Bangladesh get to learn about the sky?</h3><div class="qb"><p>What is missing in astronomy education here, and how digital learning and local communities could put space science within reach.</p><p class="since">Open since February 2025</p><button class="btn" type="button">Learn more</button></div></article>
+<article class="qa"><div class="vig"><Fragment set:html={svg_eng_fire} /></div><h3>Can we see a wildfire coming before it spreads?</h3><div class="qb"><p>Satellite images, weather and years of environmental data, put to work on early detection. The point is the forest, not the AI.</p><p class="since">Open since December 2025</p><button class="btn" type="button">Learn more</button></div></article>
+</div>
+</div>
+</section>
+
+<section class="places" id="places" aria-labelledby="pl-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">VII</span><span class="ft">Further away</span></p>
+<div class="two">
+<h2 class="h2" id="pl-h">The world, getting larger.</h2>
+<p class="body">The first time I represented Bangladesh abroad, it took me 298 kilometres from home. The next time, nearly five thousand. Every border since has made the map bigger and my certainty a little smaller.</p>
+</div>
+<div class="route-wrap"><Fragment set:html={svg_route} /></div>
+
+<div class="trip ru">
+<div class="tx">
+<Fragment set:html={svg_stamp_ru} /><h3>Russia</h3>
+<p class="when">Sirius, September 2025</p>
+<p class="geo">43.4&deg; N, 39.9&deg; E</p>
+<p>I represented Bangladesh at the International Scientific Conference on Ecology and Climate Change, presented on environmental solutions, and came home with an Outstanding Presentation Award.</p>
+</div>
+<figure class="print p1"><img src="/img/buran.jpg" alt="Ashik standing in front of the Buran space shuttle in Sirius, Russia"><figcaption>With Buran, the Soviet space shuttle. I didn&rsquo;t expect that either.</figcaption></figure>
+<figure class="print p2"><img src="/img/flag.jpg" alt="Ashik holding the flag of Bangladesh at the conference"><figcaption>Bangladesh, in the room.</figcaption></figure>
+</div>
+
+<div class="trip vn">
+<figure class="print p1"><img src="/img/boat.jpg" alt="Ashik and three friends in orange life jackets on a small wooden boat"><figcaption>Hue, on the water.</figcaption></figure>
+<figure class="print p2"><img src="/img/hat.jpg" alt="Ashik smiling under a conical hat, giving a thumbs up"><figcaption>The hat stayed on all day.</figcaption></figure>
+<div class="tx">
+<Fragment set:html={svg_stamp_vn} /><h3>Vietnam</h3>
+<p class="when">Doing Good, a UWC short course, July 2026</p>
+<p class="geo">16.5&deg; N, 107.6&deg; E</p>
+<p>Young people from many countries, living together and arguing, kindly, about what it really takes to change a community.</p>
+</div>
+<figure class="print p3"><img src="/img/group.jpg" alt="The whole short-course group outside a yellow house with blue shutters"><figcaption>Everyone, on the last day.</figcaption></figure>
+</div>
+
+<div class="trip in">
+<div class="tx">
+<Fragment set:html={svg_stamp_in} /><h3>India</h3>
+<p class="when">Darjeeling, February 2024</p>
+<p class="geo">27.0&deg; N, 88.3&deg; E</p>
+<p>The Indo-Bangladesh Scouts Friendship Camp. Not my first time abroad, but the first time I went to represent Bangladesh: two countries, one campsite, and the start of all this.</p>
+</div>
+<figure class="print p1"><img src="/img/darj1.jpg" alt="Ashik leaning on a big red heart beside the blue letters of the I love Darjeeling sign, hills behind"><figcaption>Darjeeling, under a very clear sky.</figcaption></figure>
+<figure class="print p2"><img src="/img/darj2.jpg" alt="Ashik with arms crossed in front of a foundation stone plaque, between the flag of India and a scouts flag"><figcaption>Snow View campsite, Kurseong.</figcaption></figure>
+</div>
+</div>
+</section>
+
+<section class="shelf" aria-labelledby="sh-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">VIII</span><span class="ft">The shelf</span></p>
+<div class="two">
+<h2 class="h2" id="sh-h">What shaped the thinking.</h2>
+<div class="body">
+<p>Bangla science fiction came first, back in primary school. Then Kishor Alo and Biggan Chinta, every month since third grade, and after that everything else: Dostoevsky, Orwell, Thiel, Isaacson.</p>
+<p>More than ninety books, in two languages, and still growing.</p>
+<a class="btn dark" href="/shelf">See the whole shelf</a>
+</div>
+</div>
+<div class="paint-wrap"><Fragment set:html={svg_shelf} /></div>
+</div>
+</section>
+
+<section class="nbk" id="notebook" aria-labelledby="nb-h">
+<div class="wrap sec">
+<div class="nb">
+<div class="l">
+<p class="folio"><span class="fn">IX</span><span class="ft">Written down</span></p>
+
+<h2 class="h2" id="nb-h">The notebook.</h2>
+<p>Observations, arguments and thoughts worth keeping: about people, power, technology, and whatever I happen to be reading. Sometimes blunt.</p>
+<a class="btn dark" href="/notebook">View notebook</a>
+</div>
+<article class="sheet">
+<p class="d">{fmt(latest.data.date)}</p>
+<h3>{latest.data.shortTitle || latest.data.title}</h3>
+<p class="x">{latest.data.excerpt}</p>
+<a class="go" href={`/notebook/${latest.id}/`}>Read the piece</a>
+</article>
+</div>
+</div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="ct-h">
+<div class="wrap sec">
+<p class="folio"><span class="fn">X</span><span class="ft">Write back</span></p>
+<h2 id="ct-h">Discuss a project</h2>
+<div class="cols">
+<div class="ca">
+<p>About a product, a disagreement, a book I should read, or nothing in particular. For work, you can also reach me through RareDev.</p>
+<a class="btn dark big" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=ashikur.ayon190@gmail.com" target="_blank" rel="noopener">Email me</a>
+</div>
+<ul class="soc">
+<li><a href="https://wa.me/8801753612707"><span>WhatsApp</span><em>+880 1753 612707</em></a></li>
+<li><a href="https://www.linkedin.com/in/md-ashikur-rahman-ayon/"><span>LinkedIn</span><em>md-ashikur-rahman-ayon</em></a></li>
+<li><a href="https://x.com/md_ashikur_ayon"><span>X</span><em>@md_ashikur_ayon</em></a></li>
+<li><a href="https://www.instagram.com/md_ashikur_ayon"><span>Instagram</span><em>@md_ashikur_ayon</em></a></li>
+<li><a href="https://www.facebook.com/md.ashikur.ayon"><span>Facebook</span><em>md.ashikur.ayon</em></a></li>
+<li><a href="https://medium.com/@md_ashikur_rahman_ayon"><span>Medium</span><em>@md_ashikur_rahman_ayon</em></a></li>
+<li><a href="https://www.f6s.com/md-ashikur-rahman-ayon"><span>F6S</span><em>md-ashikur-rahman-ayon</em></a></li>
+<li><a href="https://www.crunchbase.com/person/md-ashikur-rahman"><span>Crunchbase</span><em>md-ashikur-rahman</em></a></li>
+</ul>
+</div>
+</div>
+</section>
+
+<Footer />
+
+</div>
+
+</Base>

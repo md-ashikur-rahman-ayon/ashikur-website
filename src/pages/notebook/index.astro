@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
+import { graph, baseGraph, crumbs, SITE, PERSON_ID, WEBSITE_ID } from '../../data/seo';
 import shelf from '../../content/shelf.json';
 import svg_leader from '../../svg/leader.svg?raw';
 import svg_mill from '../../svg/mill.svg?raw';
@@ -13,8 +14,13 @@ const month = (d: Date) => d.toLocaleDateString('en-GB', { month: 'short', year:
 const key = (t: string) => t.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-');
 const tagLine = (t: string[]) => t.map((x, i) => (i ? x.toLowerCase() === x ? x : (x.split(' ').length > 1 ? x : x.toLowerCase()) : x)).join(', ');
 const topics = [...new Set(pieces.flatMap((p) => p.data.tags))];
+const ld = graph(baseGraph, {
+  '@type': 'Blog', '@id': SITE + '/notebook/#blog', url: SITE + '/notebook/', name: 'The Notebook', description: 'Observations, arguments and thoughts worth keeping, by Md Ashikur Rahman.',
+  isPartOf: { '@id': WEBSITE_ID }, author: { '@id': PERSON_ID }, publisher: { '@id': PERSON_ID }, inLanguage: 'en',
+  blogPost: pieces.map((p) => ({ '@type': 'BlogPosting', '@id': SITE + '/notebook/' + p.id + '/#article', headline: p.data.title, url: SITE + '/notebook/' + p.id + '/', datePublished: p.data.date.toISOString().slice(0, 10), author: { '@id': PERSON_ID } })),
+}, crumbs([['Home', '/'], ['Notebook', '/notebook/']]));
 ---
-<Base title="The Notebook, by Md Ashikur Rahman" description="Observations, arguments and thoughts worth keeping, by Md Ashikur Rahman: about people, power, technology and whatever he happens to be reading." path="/notebook">
+<Base title="The Notebook by Ashikur Rahman (Ashik)" description="Essays and notes by Md Ashikur Rahman (Ashik Ayon): observations, arguments and thoughts worth keeping, about people, power, technology and whatever he happens to be reading." path="/notebook" jsonLd={ld}>
 <div class="pg nbpage">
 <div class="veil" aria-hidden="true"></div>
 

@@ -54,7 +54,7 @@ font-variant-numeric:oldstyle-nums proportional-nums;font-optical-sizing:auto;fo
 
 .ld-in{display:flex;flex-direction:column;align-items:center;transition:transform .9s cubic-bezier(.4,0,.2,1),opacity .7s}
 .loader.gone .ld-in{transform:translateY(-2cqw) scale(.96);opacity:0}
-.ld-disc{width:max(150px,12cqw);aspect-ratio:1;border-radius:50%;position:relative;border:0;padding:0;cursor:pointer;animation:ldin .8s .1s var(--ease) both,spin 3.2s linear infinite;
+.ld-disc{width:max(150px,12cqw);aspect-ratio:1;border-radius:50%;position:relative;border:0;padding:0;cursor:default;animation:ldin .8s .1s var(--ease) both,spin 3.2s linear infinite;
 background:conic-gradient(from 30deg,rgba(255,255,255,0) 0deg,rgba(255,255,255,.12) 30deg,rgba(255,255,255,0) 70deg,rgba(255,255,255,0) 210deg,rgba(255,255,255,.09) 240deg,rgba(255,255,255,0) 280deg),repeating-radial-gradient(circle,#191411 0 1.5px,#241d19 1.6px 3px);box-shadow:0 14px 30px -14px rgba(33,27,24,.55);transition:box-shadow .4s var(--ease)}
 .ld-disc::before{content:"";position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(110,30,43,.35);animation:ldring 2.4s ease-out 1.2s infinite}
 .ld-disc:hover{box-shadow:0 22px 40px -16px rgba(33,27,24,.65)}
@@ -946,3 +946,34 @@ background:conic-gradient(from 30deg,rgba(255,255,255,0) 0deg,rgba(255,255,255,.
 
 /* web fonts switch on just after the first paint (see Base.astro); until then the matched fallbacks show */
 html:not(.fl) .pg{--txt:'Newsreader fb geo','Newsreader fb tnr','Newsreader fb djs',serif;--disp:'Bodoni Moda fb geo','Bodoni Moda fb tnr','Bodoni Moda fb djs',serif;--post:'League Gothic fb ari','League Gothic fb djsans',sans-serif;--hand:'Reenie Beanie fb ari','Reenie Beanie fb djsans',cursive}
+
+/* star chart: reserve its space before it loads; phones get a tall version of the chart */
+.chart-wrap:not(.loaded){aspect-ratio:1314/640;background:#211B18}
+@container (max-width:640px){
+  .chart-wrap:not(.loaded){aspect-ratio:720/820}
+  .chart.chart-m .nm{font-size:31px}
+  .chart.chart-m .faint .nm{font-size:26px}
+  .chart.chart-m .gr{display:inline;font-size:28px}
+  .chart.chart-m .nt{display:inline;font-size:19px}
+  .chart.chart-m .ex{font-size:17px}
+  .chart.chart-m .ex{display:inline}
+  .chart.chart-m .cn{display:inline;font-size:13px}
+  .chart.chart-m .cart .ct1{font-size:36px}
+  .chart.chart-m .cart .ct2{display:inline;font-size:17px}
+  .chart.chart-m .legend{display:none}
+}
+/* the star chart sits on the dark page: it fades in from the dark, not from white */
+.pg.rvon .rv.chart-wrap{filter:none;opacity:0;transition:opacity 1.6s cubic-bezier(.3,0,.2,1) calc(var(--rd,0ms) + .1s)}
+.pg.rvon .rv.chart-wrap.in{filter:none;opacity:1}
+
+/* Russia: a third photo, inside the text column, right under the words */
+.ru .tx .p3{width:calc(100% + 3cqw);max-width:none;margin-top:3.4cqw;transform:rotate(-1.6deg)}
+@container (max-width:640px){
+  .ru .tx .p3{width:86%;margin:32px 0 8px;transform:rotate(-1.2deg)}
+}
+
+/* the welcome record spins on its own and the site opens by itself */
+.loader.go .ld-disc{animation:spin 1.8s linear infinite!important}
+.loader .ld-disc::before{animation:none}
+.loader{cursor:default}
+@media (prefers-reduced-motion: reduce){.loader.go .ld-disc{animation:none!important}}

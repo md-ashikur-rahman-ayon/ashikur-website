@@ -3,14 +3,20 @@ import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import shelf from '../content/shelf.json';
+import { graph, baseGraph, crumbs, SITE, PERSON_ID, WEBSITE_ID } from '../data/seo';
 import svg_leader from '../svg/leader.svg?raw';
 import svg_shelf from '../svg/shelf.svg?raw';
 const total = shelf.english.length + shelf.bangla.reduce((n, g) => n + g.books.length, 0);
+const ld = graph(baseGraph, {
+  '@type': 'CollectionPage', '@id': SITE + '/shelf/#webpage', url: SITE + '/shelf/', name: 'The Shelf: books that shaped Md Ashikur Rahman', isPartOf: { '@id': WEBSITE_ID }, about: { '@id': PERSON_ID }, inLanguage: 'en',
+  mainEntity: { '@type': 'ItemList', name: 'Books on Ashik’s shelf', numberOfItems: shelf.english.length,
+    itemListElement: shelf.english.map((b, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Book', name: b.title, author: { '@type': 'Person', name: b.author } } })) },
+}, crumbs([['Home', '/'], ['Shelf', '/shelf/']]));
 const PAL = [['#6E1E2B','#F3ECDD','#D9A441'],['#211B18','#D9A441','#F3ECDD'],['#D9A441','#211B18','#6E1E2B'],['#2F4A3F','#F3ECDD','#D9A441'],['#F3ECDD','#6E1E2B','#211B18'],['#294057','#F3ECDD','#D9A441'],['#B65A3A','#F3ECDD','#211B18']];
 const ORN = ['<circle cx="50" cy="50" r="18"/>','<path d="M50 30 L70 50 L50 70 L30 50Z"/>','<path d="M30 60 Q50 25 70 60"/><circle cx="50" cy="66" r="4"/>','<rect x="34" y="34" width="32" height="32" transform="rotate(45 50 50)"/>','<circle cx="50" cy="50" r="20"/><circle cx="50" cy="50" r="8"/>','<path d="M28 50 H72 M50 28 V72"/>'];
 const TILT = [-1.2, 0.8, -0.5, 1.4, -1, 0.6, 1.1];
 ---
-<Base title="The Shelf: books that shaped Md Ashikur Rahman" description="The books that shaped how Md Ashikur Rahman thinks, in Bangla and English: Muhammed Zafar Iqbal, Humayun Ahmed, Orwell, Dostoevsky, Kafka and more." path="/shelf">
+<Base title="The Shelf: books that shaped Ashikur Rahman (Ashik)" description="The books that shaped how Md Ashikur Rahman (Ashik) thinks, in Bangla and English: Muhammed Zafar Iqbal, Humayun Ahmed, Orwell, Dostoevsky, Kafka and more." path="/shelf" jsonLd={ld}>
 <div class="pg shpage">
 <div class="veil" aria-hidden="true"></div>
 

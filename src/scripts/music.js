@@ -59,46 +59,75 @@ function schedule() {
 }
 
 function sync() {
+  // the button always shows what you actually hear, not what we hoped would happen
+  var on = isOn();
   var btn = document.getElementById('rec'), pg = document.querySelector('.pg');
-  if (btn) { btn.setAttribute('aria-pressed', playing ? 'true' : 'false'); btn.setAttribute('aria-label', playing ? 'Pause the music' : 'Play the music'); }
-  if (pg) pg.classList.toggle('paused', !playing);
+  if (btn) { btn.setAttribute('aria-pressed', on ? 'true' : 'false'); btn.setAttribute('aria-label', on ? 'Pause the music' : 'Play the music'); }
+  if (pg) pg.classList.toggle('paused', !on);
+}
+function isOn() { return !!(playing && ctx && ctx.state === 'running'); }
+function build() {
+  if (ctx) return true;
+  var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return false;
+  ctx = new AC(); master = ctx.createGain(); master.gain.value = 0;
+  var lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3800;
+  master.connect(lp); lp.connect(ctx.destination); crackle();
+  ctx.onstatechange = sync;
+  return true;
+}
+function begin() {
+  if (playing) return;
+  nextT = ctx.currentTime + 0.1;
+  master.gain.cancelScheduledValues(ctx.currentTime);
+  master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+  master.gain.setTargetAtTime(0.55, ctx.currentTime, 0.6);
+  clearInterval(timer); timer = setInterval(schedule, 80); playing = true;
 }
 function start() {
-  if (!ctx) {
-    var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
-    ctx = new AC(); master = ctx.createGain(); master.gain.value = 0;
-    var lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3800;
-    master.connect(lp); lp.connect(ctx.destination); crackle();
-    ctx.onstatechange = function () { if (ctx.state === 'running') everRan = true; };
-  }
-  if (playing) { ctx.resume(); return; }
-  ctx.resume(); nextT = ctx.currentTime + 0.1;
-  master.gain.cancelScheduledValues(ctx.currentTime);
-  master.gain.setTargetAtTime(0.55, ctx.currentTime, 0.6);
-  timer = setInterval(schedule, 80); playing = true; sync();
+  if (!build()) return;
+  var p = ctx.resume();
+  var go = function () { if (ctx.state === 'running') { begin(); everRan = true; } sync(); };
+  if (p && p.then) p.then(go, sync); else go();
 }
-function stop() {
-  clearInterval(timer); playing = false;
-  if (ctx) { master.gain.setTargetAtTime(0, ctx.currentTime, 0.35); setTimeout(function () { if (!playing) ctx.suspend(); }, 1800); }
+function stop(keepIntent) {
+  clearInterval(timer); timer = null; playing = false;
+  if (ctx) {
+    master.gain.cancelScheduledValues(ctx.currentTime);
+    master.gain.setTargetAtTime(0, ctx.currentTime, keepIntent ? 0.05 : 0.35);
+    var c = ctx; setTimeout(function () { if (!playing && c.state === 'running') c.suspend().then(sync, sync); }, keepIntent ? 120 : 1200);
+  }
   sync();
 }
 window.__ashikAudioResume = function () { userMuted = false; start(); };
 
-// Browsers keep sound off until the first tap, key or click; the first one anywhere lets the record play.
+// Browsers keep sound off until the visitor first taps, clicks or presses a key.
+// The first such action anywhere on the site starts the record (unless they have paused it themselves).
 var unlock = function (e) {
   var btn = document.getElementById('rec');
-  if (userMuted || (btn && e && btn.contains(e.target))) return;
-  if (e && e.target && e.target.closest && e.target.closest('.ld-disc')) return;
+  if (btn && e && e.target && btn.contains(e.target)) return; // the button handles itself
+  if (userMuted || isOn()) return;
   start();
 };
-['pointerdown', 'keydown', 'touchstart'].forEach(function (n) { document.addEventListener(n, unlock, { once: true, passive: true }); });
+['pointerdown', 'touchend', 'click', 'keydown'].forEach(function (n) { document.addEventListener(n, unlock, { capture: true, passive: true }); });
 
+// Leaving the tab, locking the phone or closing the browser pauses the music; coming back picks it up again.
+var pausedByHiding = false;
+var hide = function () { if (isOn() || playing) { pausedByHiding = true; stop(true); } };
+var show = function () { if (pausedByHiding && !userMuted) { pausedByHiding = false; start(); } };
+document.addEventListener('visibilitychange', function () { if (document.hidden) hide(); else show(); });
+window.addEventListener('pagehide', hide);
+window.addEventListener('blur', function () { if (document.hidden) hide(); });
+
+var bound = new WeakSet();
 export function bindMusic() {
   var btn = document.getElementById('rec');
   if (!btn) return;
-  btn.addEventListener('click', function () {
-    if (playing && ctx && ctx.state !== 'running' && !everRan) { ctx.resume(); return; }
-    if (playing) { userMuted = true; stop(); } else { userMuted = false; start(); }
-  });
-  if (!userMuted && !playing) start(); else sync();
+  if (!bound.has(btn)) {
+    bound.add(btn);
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (isOn()) { userMuted = true; stop(); } else { userMuted = false; pausedByHiding = false; start(); }
+    });
+  }
+  sync();
 }

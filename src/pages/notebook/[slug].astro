@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection, render } from 'astro:content';
+import { graph, baseGraph, crumbs, SITE, PERSON_ID, WEBSITE_ID } from '../../data/seo';
 import svg_mill from '../../svg/mill.svg?raw';
 
 export async function getStaticPaths() {
@@ -16,13 +17,18 @@ const fmt = (x: Date) => x.toLocaleDateString('en-GB', { day: 'numeric', month: 
 const iso = d.date.toISOString().slice(0, 10);
 const path = `/notebook/${piece.id}/`;
 const mail = `https://mail.google.com/mail/?view=cm&fs=1&to=ashikur.ayon190@gmail.com&su=${encodeURIComponent(d.shortTitle || d.title)}`;
-const ld = {
-  '@context': 'https://schema.org', '@type': 'BlogPosting', headline: d.title, datePublished: iso,
-  author: { '@type': 'Person', name: 'Md Ashikur Rahman', url: 'https://ashikur.safeshare.co/about/' },
-  keywords: d.tags, url: 'https://ashikur.safeshare.co' + path,
-};
+const words = (piece.body || '').split(/\s+/).filter(Boolean).length;
+const ld = graph(baseGraph, {
+  '@type': 'BlogPosting', '@id': SITE + path + '#article', headline: d.title, alternativeHeadline: d.shortTitle || undefined,
+  description: d.summary || d.excerpt, datePublished: iso, dateModified: iso, inLanguage: 'en',
+  author: { '@id': PERSON_ID }, publisher: { '@id': PERSON_ID },
+  image: { '@type': 'ImageObject', url: SITE + '/og.jpg', width: 1200, height: 630 },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': SITE + path }, isPartOf: [{ '@id': SITE + '/notebook/#blog' }, { '@id': WEBSITE_ID }],
+  keywords: d.tags, articleSection: d.tags[0], wordCount: words || undefined, url: SITE + path,
+  sameAs: d.mediumUrl || undefined,
+}, crumbs([['Home', '/'], ['Notebook', '/notebook/'], [d.shortTitle || d.title, path]]));
 ---
-<Base title={`${d.title} | Md Ashikur Rahman`} description={d.summary || d.excerpt} path={path} type="article" jsonLd={ld}>
+<Base title={`${d.title} | Md Ashikur Rahman`} description={d.summary || d.excerpt} path={path} type="article" published={iso} jsonLd={ld}>
 <div class="pg stpage">
 <div class="veil" aria-hidden="true"></div>
 <Nav current="notebook" />

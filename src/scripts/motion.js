@@ -43,31 +43,29 @@ export function initMotion(signal) {
   };
   var chart0 = pg.querySelector('.chart'); if (chart0) bindChart(chart0);
 
-  // the welcome record: on a fresh visit, tapping it starts the music and opens the site.
+  // the welcome record: on a fresh visit it spins for a moment, then the site opens by itself.
   // Coming back to this page in the same visit, there is no record: just the same soft fade as every page.
   var loader = pg.querySelector('.loader');
   if (loader) {
     var seen = false;
     try { seen = sessionStorage.getItem('ashik-entered-v2') === '1'; } catch (e) {}
     var root = document.documentElement, prevOv = root.style.overflow;
-    var lift = function (delay) {
-      setTimeout(function () { loader.classList.add('gone'); root.style.overflow = prevOv; }, delay);
-    };
     if (seen) {
       loader.style.display = 'none';
     } else {
       root.style.overflow = 'hidden';
-      var disc = loader.querySelector('.ld-disc');
-      var enter = function () {
-        if (loader.classList.contains('go')) return;
-        loader.classList.add('go');
+      loader.classList.add('go');
+      var done = false;
+      var open = function () {
+        if (done) return; done = true;
         try { sessionStorage.setItem('ashik-entered-v2', '1'); } catch (e) {}
-        var rec = pg.querySelector('#rec');
-        if (rec && rec.getAttribute('aria-pressed') !== 'true') rec.click();
-        if (window.__ashikAudioResume) window.__ashikAudioResume();
-        lift(450);
+        loader.classList.add('gone'); root.style.overflow = prevOv;
       };
-      if (disc) disc.addEventListener('click', enter);
+      var t0 = performance.now();
+      var after = function () { setTimeout(open, Math.max(0, 1700 - (performance.now() - t0))); };
+      if (document.readyState === 'complete') after(); else window.addEventListener('load', after, { once: true });
+      setTimeout(open, 4000); // never keep anyone waiting on a slow connection
+      loader.addEventListener('click', open, S); // a tap opens it straight away (and, being a tap, starts the music)
     }
   }
 
@@ -145,9 +143,10 @@ export function initMotion(signal) {
     var done = false, io2 = null;
     var load = function () {
       if (done) return; done = true; if (io2) io2.disconnect();
-      fetch(w.dataset.svg).then(function (r) { return r.text(); }).then(function (t) {
+      var url = (w.dataset.svgM && window.matchMedia('(max-width: 640px)').matches) ? w.dataset.svgM : w.dataset.svg;
+      fetch(url).then(function (r) { return r.text(); }).then(function (t) {
         if (!w.isConnected) return;
-        w.innerHTML = t; w.style.aspectRatio = '';
+        w.innerHTML = t; w.classList.add('loaded');
         var c = w.querySelector('.chart'); if (c) bindChart(c);
         var m = w.querySelector('.map'); if (m) bindMap(m);
       }).catch(function () { done = false; });

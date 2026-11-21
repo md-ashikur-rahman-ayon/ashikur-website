@@ -964,7 +964,7 @@ html:not(.fl) .pg{--txt:'Newsreader fb geo','Newsreader fb tnr','Newsreader fb d
 }
 /* the star chart sits on the dark page: it fades in from the dark, not from white */
 .pg.rvon .rv.chart-wrap{filter:none;opacity:0;transition:opacity 1.6s cubic-bezier(.3,0,.2,1) calc(var(--rd,0ms) + .1s)}
-.pg.rvon .rv.chart-wrap.in{filter:none;opacity:1}
+.pg.rvon .rv.chart-wrap.in{filter:none;opacity:1;transition:opacity 1.8s cubic-bezier(.3,0,.2,1) calc(var(--rd,0ms) + .1s)}
 
 /* Russia: a third photo, inside the text column, right under the words */
 .ru .tx .p3{width:calc(100% + 3cqw);max-width:none;margin-top:3.4cqw;transform:rotate(-1.6deg)}
